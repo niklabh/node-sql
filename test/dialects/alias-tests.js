@@ -77,3 +77,28 @@ Harness.test({
   },
   params: [10, 20]
 });
+
+Harness.test({
+  query: customer.select(customer.age.notBetween(10, 20).as('ageNotBetween')),
+  pg: {
+    text  : 'SELECT ("customer"."age" NOT BETWEEN $1 AND $2) AS "ageNotBetween" FROM "customer"',
+    string: 'SELECT ("customer"."age" NOT BETWEEN 10 AND 20) AS "ageNotBetween" FROM "customer"'
+  },
+  sqlite: {
+    text  : 'SELECT ("customer"."age" NOT BETWEEN $1 AND $2) AS "ageNotBetween" FROM "customer"',
+    string: 'SELECT ("customer"."age" NOT BETWEEN 10 AND 20) AS "ageNotBetween" FROM "customer"'
+  },
+  mysql: {
+    text  : 'SELECT (`customer`.`age` NOT BETWEEN ? AND ?) AS `ageNotBetween` FROM `customer`',
+    string: 'SELECT (`customer`.`age` NOT BETWEEN 10 AND 20) AS `ageNotBetween` FROM `customer`'
+  },
+  mssql: {
+    text  : 'SELECT ([customer].[age] NOT BETWEEN @1 AND @2) AS [ageBetween] FROM [customer]',
+    string: 'SELECT ([customer].[age] NOT BETWEEN 10 AND 20) AS [ageBetween] FROM [customer]'
+  },
+  oracle: {
+    text  : 'SELECT ("customer"."age" NOT BETWEEN :1 AND :2) "ageBetween" FROM "customer"',
+    string: 'SELECT ("customer"."age" NOT BETWEEN 10 AND 20) "ageBetween" FROM "customer"'
+  },
+  params: [10, 20]
+});
